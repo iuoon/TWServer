@@ -2,6 +2,9 @@ package com.iuoon.tw;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.embedded.ConfigurableEmbeddedServletContainer;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerCustomizer;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
@@ -18,11 +21,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 
 @SpringBootApplication //等同于 @Configuration @EnableAutoConfiguration @ComponentScanpublic
-public class Application {
+public class Application extends SpringBootServletInitializer implements EmbeddedServletContainerCustomizer {
     //启动Spring Boot入口
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args);
     }
 
-
+    @Override
+    public void customize(ConfigurableEmbeddedServletContainer container) {
+        container.setPort(8081);
+    }
 }
